@@ -1,0 +1,15 @@
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\algorithm-test.exe.config
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\algorithm-test.exe
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\algorithm-test.pdb
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\MathNet.Numerics.dll
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\MathNet.Numerics.xml
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm-test.csprojAssemblyReference.cache
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm_test.Form1.resources
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm_test.Properties.Resources.resources
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm-test.csproj.GenerateResource.cache
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm-test.csproj.CoreCompileInputs.cache
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm-test.csproj.CopyComplete
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm-test.exe
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\obj\Debug\algorithm-test.pdb
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\Database1.mdf
+C:\Users\nysad\source\repos\algorithm-test\algorithm-test\bin\Debug\Database1_log.ldf
