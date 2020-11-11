@@ -22,19 +22,15 @@ namespace algorithm_test
 
         private void StudentListForm_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (SqlConnection conn = new SqlConnection(GradeForm.connectionString))
+            listBox1.Items.Clear();
+            using (SqlConnection conn = new SqlConnection(SqlTools.connectionString))
             {
                 conn.Open();
                 command = new SqlCommand("SELECT COUNT(*) FROM Students", conn);
                 int rows = (int)command.ExecuteScalar();
-                for (int i = 1; i < rows+1; i++)
+                for (int i = 1; i < rows + 1; i++)
                 {
-                    command = new SqlCommand("SELECT StudentFirstName, StudentLastName FROM Students where StudentId = "+i , conn);
+                    command = new SqlCommand("SELECT StudentFirstName, StudentLastName FROM Students where StudentId = " + i, conn);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -46,6 +42,14 @@ namespace algorithm_test
                     }
                 }
             }
+        }
+
+        private void listBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Value changed");
+            Debug.WriteLine("Index: {0}", listBox1.SelectedIndex);
+            label1.Text += " "+listBox1.SelectedItem.ToString();
+
         }
     }
 }

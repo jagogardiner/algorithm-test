@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Linq;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using MathNet.Numerics;
 
 namespace algorithm_test
 {
     public partial class GradeForm : Form
     {
-        public static string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security = True";
-
         // to-do work out actual weights
         readonly Dictionary<string, double> Grades = new Dictionary<string, double>()
         {
@@ -35,29 +33,21 @@ namespace algorithm_test
             List<double> MockResults = new List<double>();
             List<double> MTGResults = new List<double>();
             List<double> FinalResults = new List<double>();
-
-            using (SqlConnection conn = new SqlConnection())
+            for (int i = 1; i < SqlTools.getRows("Results") + 1; i++)
             {
-                conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nysad\source\repos\algorithm-test\algorithm-test\Database1.mdf;Integrated Security=True";
-                conn.Open();
-                SqlCommand comm = new SqlCommand("SELECT COUNT(*) FROM Results", conn);
-                int row = (int)comm.ExecuteScalar();
-                for (int i = 1; i < row+1; i++)
+                using (SqlTools tools = new SqlTools())
                 {
-                    comm = new SqlCommand("SELECT HWResult, MockResult, MTGResult, FinalResult FROM Results where ResultID = "+i, conn);
-                    using (SqlDataReader reader = comm.ExecuteReader())
+                    tools.reader = SqlTools.executeReader("SELECT HWResult, MockResult, MTGResult, FinalResult FROM Results where ResultID = " + i);
+                    while (tools.reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            HomeworkResults.Add(Grades[reader[0].ToString().TrimEnd()]);
-                            MockResults.Add(Grades[reader[1].ToString().TrimEnd()]);
-                            MTGResults.Add(Grades[reader[2].ToString().TrimEnd()]);
-                            FinalResults.Add(Grades[reader[3].ToString().TrimEnd()]);
-                        }
+                        HomeworkResults.Add(Grades[tools.reader[0].ToString().TrimEnd()]);
+                        MockResults.Add(Grades[tools.reader[1].ToString().TrimEnd()]);
+                        MTGResults.Add(Grades[tools.reader[2].ToString().TrimEnd()]);
+                        FinalResults.Add(Grades[tools.reader[3].ToString().TrimEnd()]);
                     }
                 }
-                conn.Close();
             }
+
             double[][] x = new double[HomeworkResults.Count][];
             // populate x
             for(int i = 0; i < HomeworkResults.Count; i++)
@@ -65,8 +55,8 @@ namespace algorithm_test
                 x[i] = new double[3];
             }
             double[] y = new double[FinalResults.Count];
-            Console.WriteLine(HomeworkResults.Count);
-            Console.WriteLine(HomeworkResults[1]);
+            Debug.WriteLine(HomeworkResults.Count);
+            Debug.WriteLine(HomeworkResults[1]);
             for (int i = 0; i < HomeworkResults.Count; i++)
             {
                 x[i][0] = HomeworkResults[i];
@@ -144,7 +134,7 @@ namespace algorithm_test
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            calculateCoefficient();
+             calculateCoefficient();
         }
 
         private void Form1_Load(object sender, EventArgs e)
