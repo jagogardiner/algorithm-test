@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,15 +42,23 @@ namespace algorithm_test
                         }
                     }
                 }
+                conn.Close();
             }
         }
 
         private void listBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("Value changed");
-            Debug.WriteLine("Index: {0}", listBox1.SelectedIndex);
-            label1.Text += " "+listBox1.SelectedItem.ToString();
-
+            label1.Text = "Name: "+listBox1.SelectedItem.ToString();
+            string year = null;
+            using(SqlTools tools = new SqlTools())
+            {
+                tools.reader = SqlTools.executeReader("SELECT AcademicYear.AcademicYearName FROM Students INNER JOIN AcademicYear ON Students.AcademicYearID=AcademicYear.AcademicYearID where Students.StudentId="+listBox1.SelectedIndex);
+                while (tools.reader.Read())
+                {
+                    year = (string)tools.reader[0];
+                }
+            }
+            label2.Text = "Academic year: " + year;
         }
     }
 }

@@ -20,7 +20,16 @@ namespace algorithm_test
                 connection = new SqlConnection(connectionString);
                 connection.Open();
                 command = new SqlCommand(query, connection);
-                return command.ExecuteReader(CommandBehavior.CloseConnection);
+                return command.ExecuteReader();
+        }
+        internal static int executeScalar(string query)
+        {
+            using(connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                command = new SqlCommand(query, connection);
+                return (int)command.ExecuteScalar();
+            }
         }
         internal static int getRows(string table)
         {
